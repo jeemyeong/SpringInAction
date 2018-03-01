@@ -10,10 +10,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import sia.knights.Knight;
+import java.io.PrintStream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=KnightConfig.class,loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes= sia.knights.config.KnightConfig.class,loader=AnnotationConfigContextLoader.class)
 public class KnightJavaConfigInjectionTest {
 
   @Autowired
@@ -22,6 +22,9 @@ public class KnightJavaConfigInjectionTest {
   @Autowired
   FakePrintStream printStream;
 
+  @Autowired
+  PrintStream printStream2;
+
   @After
   public void clearPrintStream() {
     printStream.clear();
@@ -29,6 +32,7 @@ public class KnightJavaConfigInjectionTest {
 
   @Test
   public void shouldInjectKnightWithSlayDragonQuest() {
+    System.out.println(printStream == printStream2);
     knight.embarkOnQuest();
     assertEquals(
         "Embarking on quest to slay the dragon!\n", 
